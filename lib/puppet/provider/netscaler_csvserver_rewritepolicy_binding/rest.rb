@@ -23,11 +23,11 @@ Puppet::Type.type(:netscaler_csvserver_rewritepolicy_binding).provide(:rest, {:p
           when 'policylabel'
             policylabel = bind['labelname']
             case bind['bindpoint']
-              when 'REQUEST':
+              when 'REQUEST'
                 labeltype = 'Request'
-              when "RESPONSE":
+              when "RESPONSE"
                 labeltype = 'Response'
-            end                
+            end
         end
         instances << new({
           :ensure               => :present,
