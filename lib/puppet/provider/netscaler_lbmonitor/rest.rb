@@ -16,12 +16,12 @@ Puppet::Type.type(:netscaler_lbmonitor).provide(:rest, {:parent => Puppet::Provi
       'MIN' => 60
     }
 
-    interval = monitor['interval'].to_i * unit_map[monitor['units3']]
-    resptimeout = monitor['resptimeout'].to_i * unit_map[monitor['units4']]
-    downtime = monitor['downtime'].to_i * unit_map[monitor['units2']]
-    deviation = monitor['deviation'].to_i * unit_map[monitor['units1']]
-
     monitors.each do |monitor|
+      interval = monitor['interval'].to_i * unit_map[monitor['units3']]
+      resptimeout = monitor['resptimeout'].to_i * unit_map[monitor['units4']]
+      downtime = monitor['downtime'].to_i * unit_map[monitor['units2']]
+      deviation = monitor['deviation'].to_i * unit_map[monitor['units1']]
+
       instances << new({
         :ensure                         => :present,
         ## Standard
