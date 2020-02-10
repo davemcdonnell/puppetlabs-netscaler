@@ -28,3 +28,7 @@ AMI:
     :image:
       :default: "ami-75341345"
     :region: "us-west-2"
+  "netscaler-premium-13.0-10mb":
+    :image:
+      :default: "ami-03e201ab0af6c9523"
+    :region: "us-west-2"

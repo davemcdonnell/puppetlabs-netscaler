@@ -9,10 +9,11 @@ HOSTS:
     platform: "el-7-x86_64"
     snapshot: "ebs"
     amisize: m3.xlarge
+    user: centos
   "netscaler":
     roles:
       - "netscaler"
-    vmname: "netscaler-platinum-10.5-10mb"
+    vmname: "netscaler-premium-13.0-10mb"
     hypervisor: "ec2"
     platform: "netscaler-10.5-55.8"
     snapshot: "default"
@@ -22,7 +23,8 @@ HOSTS:
       password: 'nsroot'
     additional_ports: 443
 CONFIG:
-  type: "foss"
+  type: "aio"
+  puppet_collection: puppet6
   ec2_yaml: "spec/acceptance/nodesets/ec2.yaml"
   log_level: "debug"
   ssh:
