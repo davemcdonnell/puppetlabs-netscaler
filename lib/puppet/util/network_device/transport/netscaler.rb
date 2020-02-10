@@ -16,7 +16,7 @@ class Puppet::Util::NetworkDevice::Transport::Netscaler < Puppet::Util::NetworkD
         :interval_randomness => 0.5,
         :backoff_factor      => 2,
         :exceptions          => [
-          Faraday::Error::TimeoutError,
+          Faraday::TimeoutError,
           Faraday::ConnectionFailed,
           Errno::ETIMEDOUT,
           'Timeout::Error',

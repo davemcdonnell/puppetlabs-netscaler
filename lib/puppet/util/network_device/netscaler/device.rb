@@ -12,7 +12,12 @@ class Puppet::Util::NetworkDevice::Netscaler::Device
       self,
       "puppet/util/network_device/transport"
     )
-    if @autoloader.load("netscaler")
+    autoloader_params = ['netscaler']
+    # As of Puppet 6.0, environment is a required autoloader parameter: (PUP-8696)
+    if Gem::Version.new(Puppet.version) >= Gem::Version.new('6.0.0')
+      autoloader_params << Puppet.lookup(:current_environment)
+    end
+    if @autoloader.load(*autoloader_params)
       @transport = Puppet::Util::NetworkDevice::Transport::Netscaler.new(url,options[:debug])
     end
   end

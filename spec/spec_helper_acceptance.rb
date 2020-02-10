@@ -1,8 +1,16 @@
 # Add the fixtures lib dir to RUBYLIB
 $:.unshift File.join(File.dirname(__FILE__),  'fixtures', 'lib')
 
+#puts BeakerPuppet.inspect
+
+require 'beaker-puppet'
+require 'puppet'
 require 'beaker-rspec'
-require 'beaker/puppet_install_helper'
+#require 'beaker/puppet_install_helper'
+#require 'beaker/testmode_switcher'
+#require 'beaker/testmode_switcher/dsl'
+
+#install_puppet_on(master)
 
 def wait_for_master(max_retries)
   1.upto(max_retries) do |retries|
@@ -17,7 +25,7 @@ def wait_for_master(max_retries)
   raise "Could not connect to Puppet Master."
 end
 
-def make_site_pp(pp, path = File.join(master['puppetpath'], 'manifests'))
+def make_site_pp(pp, path = File.join('/etc/puppetlabs/puppet', 'manifests'))
   on master, "mkdir -p #{path}"
   create_remote_file(master, File.join(path, "site.pp"), pp)
   if ENV['PUPPET_INSTALL_TYPE'] == 'foss'
@@ -68,7 +76,8 @@ def run_resource(resource_type, resource_title=nil)
 end
 
 unless ENV['RS_PROVISION'] == 'no' or ENV['BEAKER_provision'] == 'no'
-  run_puppet_install_helper_on master
+  #run_puppet_install_helper_on master
+  install_puppet_on(master)
 
   if ENV['PUPPET_INSTALL_TYPE'] == 'pe'
     pp=<<-EOS
@@ -79,10 +88,10 @@ unless ENV['RS_PROVISION'] == 'no' or ENV['BEAKER_provision'] == 'no'
     pp=<<-EOS
     $pkg = $::osfamily ? {
       'Debian' => 'puppetmaster',
-      'RedHat' => 'puppet-server',
+      'RedHat' => 'puppetserver',
     }
     package { $pkg: ensure => present, }
-    -> service { 'puppetmaster': ensure => running, }
+    -> service { 'puppetserver': ensure => running, }
     EOS
   end
 
@@ -108,12 +117,15 @@ RSpec.configure do |c|
 type netscaler
 url https://nsroot:#{hosts_as('netscaler').first[:ssh][:password]}@#{hosts_as('netscaler').first['ip']}/nitro/v1/
 EOS
-    create_remote_file(default, File.join(default[:puppetpath], "device.conf"), device_conf)
+    #create_remote_file(default, File.join(default[:puppetpath], "device.conf"), device_conf)
+    create_remote_file(default, File.join('/etc/puppetlabs/puppet', "device.conf"), device_conf)
     apply_manifest("include netscaler")
     on master, puppet('plugin','download','--server',master.to_s)
     on master, puppet('device','-v','--waitforcert','0','--user','root','--server',master.to_s), {:acceptable_exit_codes => [0,1] }
-    on master, puppet('cert','sign','netscaler'), {:acceptable_exit_codes => [0,24] }
-    #Verify Facts can be retreived 
+    #on master, puppet('ca','sign','netscaler'), {:acceptable_exit_codes => [0,24] }
+    #sign_certificate_for(netscaler)
+    sign_certificate_for()
+    #Verify Facts can be retreived
     device_facts_ok(3)
   end
 end
