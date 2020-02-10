@@ -19,7 +19,7 @@ class Puppet::Util::NetworkDevice::Netscaler::Facts
       :numcpus,
       :starttime,
     ].each do |fact|
-      facts[fact] = result[fact.to_s]
+      facts[fact.to_s] = result[fact.to_s]
     end
     result = @transport.call('/config/nsconfig')
     [
@@ -32,11 +32,11 @@ class Puppet::Util::NetworkDevice::Netscaler::Facts
       :lastconfigsavetime,
       :systemtime,
     ].each do |fact|
-      facts[fact] = result[fact.to_s]
+      facts[fact.to_s] = result[fact.to_s]
     end
-    facts[:version]         = @transport.call('/config/nsversion')['version']
-    facts[:macaddress]      = @transport.call('/config/Interface').first['mac']
-    facts[:operatingsystem] = :Netscaler
+    facts['version']         = @transport.call('/config/nsversion')['version']
+    facts['macaddress']      = @transport.call('/config/Interface').first['mac']
+    facts['operatingsystem'] = 'Netscaler'
     #facts[:fqdn]            = facts[:hostname]
 
     return facts
