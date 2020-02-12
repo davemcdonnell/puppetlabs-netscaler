@@ -18,7 +18,7 @@ AMI:
     :region: "us-west-2"
   "centos-7-x86-64-west":
     :image:
-      :ebs: "ami-f7d1d0c7"
+      :ebs: "ami-01ed306a12b7d1c96"
     :region: "us-west-2"
   "netscaler-standard-10.5-10mb":
     :image:
@@ -32,3 +32,11 @@ AMI:
     :image:
       :default: "ami-03e201ab0af6c9523"
     :region: "us-west-2"
+  "centos-7-x86-64-au":
+    :image:
+      :ebs: "ami-08bd00d7713a39e7d"
+    :region: "ap-southeast-2"
+  "netscaler-premium-13.0-10mb-au":
+    :image:
+      :default: "ami-038e419982edf9948"
+    :region: "ap-southeast-2"
