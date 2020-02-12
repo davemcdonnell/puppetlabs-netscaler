@@ -8,7 +8,7 @@ HOSTS:
     hypervisor: "ec2"
     platform: "el-7-x86_64"
     snapshot: "ebs"
-    amisize: m3.xlarge
+    amisize: m5.xlarge
     user: centos
   "netscaler":
     roles:
@@ -17,7 +17,7 @@ HOSTS:
     hypervisor: "ec2"
     platform: "netscaler-10.5-55.8"
     snapshot: "default"
-    amisize: "m3.large"
+    amisize: "m5.large"
     user: "nsroot"
     ssh:
       password: 'nsroot'

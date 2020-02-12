@@ -21,7 +21,7 @@ Puppet::Type.type(:netscaler_lbmonitor).provide(:rest, {:parent => Puppet::Provi
       resptimeout = monitor['resptimeout'].to_i * unit_map[monitor['units4']]
       downtime = monitor['downtime'].to_i * unit_map[monitor['units2']]
       deviation = monitor['deviation'].to_i * unit_map[monitor['units1']]
-      
+
       instances << new({
         :ensure                         => :present,
         ## Standard
