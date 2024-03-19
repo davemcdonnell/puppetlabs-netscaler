@@ -28,7 +28,7 @@ class Puppet::Util::NetworkDevice::Transport::Netscaler < Puppet::Util::NetworkD
   end
 
   def call(url=nil, args={})
-    url = URI.escape(url) if url
+    url = URI::DEFAULT_PARSER.escape(url) if url
     result = connection.get("/nitro/v1#{url}", args)
     type = url.split('/')[1]
     output = JSON.parse(result.body)
