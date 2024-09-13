@@ -57,7 +57,7 @@ Puppet::Type.newtype(:netscaler_feature) do
   def self.title_patterns
     key_pattern =  self.rest_name_map.keys.join('|')
     [ 
-      [ /^(#{key_pattern})$/i, [ [ :name, Proc.new { |value|  self.rest_name_map[value.downcase] } ] ] ] ,
+      #[ /^(#{key_pattern})$/i, [ [ :name, Proc.new { |value|  self.rest_name_map[value.downcase] } ] ] ] ,
       [ /(.*)/m, [ [ :name ] ] ]
     ]
   end
