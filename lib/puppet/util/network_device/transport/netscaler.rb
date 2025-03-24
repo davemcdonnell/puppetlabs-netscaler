@@ -8,6 +8,7 @@ class Puppet::Util::NetworkDevice::Transport::Netscaler < Puppet::Util::NetworkD
   def initialize(url, _options = {})
     require 'uri'
     require 'faraday'
+    require 'faraday/retry'
     require 'puppet/util/network_device/transport/do_not_encoder'
     @connection = Faraday.new({:url => url, :ssl => { :verify => false }}) do |builder|
       builder.request :retry, {
