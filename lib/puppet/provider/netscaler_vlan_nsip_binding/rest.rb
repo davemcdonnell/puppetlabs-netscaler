@@ -47,7 +47,7 @@ Puppet::Type.type(:netscaler_vlan_nsip_binding).provide(:rest, {:parent => Puppe
   end
 
   def destroy
-    toname, fromname = resource.name.split('/').map { |n| URI.escape(n) }
+    toname, fromname = resource.name.split('/').map { |n| URI::DEFAULT_PARSER.escape(n) }
     result = Puppet::Provider::Netscaler.delete("/config/#{netscaler_api_type}/#{toname}",{'args'=>"ipaddress:#{fromname},td:#{@property_hash[:td]},netmask:#{@property_hash[:netmask]}"})
     @property_hash.clear
 

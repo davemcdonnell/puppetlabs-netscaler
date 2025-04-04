@@ -37,7 +37,7 @@ Puppet::Type.type(:netscaler_lbvserver_servicegroup_binding).provide(:rest, {:pa
   end
 
   def destroy
-    toname, fromname = resource.name.split('/').map { |n| URI.escape(n) }
+    toname, fromname = resource.name.split('/').map { |n| URI::DEFAULT_PARSER.escape(n) }
     result = Puppet::Provider::Netscaler.delete("/config/#{netscaler_api_type}/#{toname}",{'args'=>"servicegroupname:#{fromname}"})
     @property_hash.clear
 

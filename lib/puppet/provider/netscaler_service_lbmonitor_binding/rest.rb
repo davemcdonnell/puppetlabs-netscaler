@@ -41,7 +41,7 @@ Puppet::Type.type(:netscaler_service_lbmonitor_binding).provide(:rest, {:parent 
   end
 
   def destroy
-    toname, fromname = resource.name.split('/').map { |n| URI.escape(n) }
+    toname, fromname = resource.name.split('/').map { |n| URI::DEFAULT_PARSER.escape(n) }
     result = Puppet::Provider::Netscaler.delete("/config/#{netscaler_api_type}/#{toname}",{'args'=>"monitor_name:#{fromname}"})
     @property_hash.clear
 

@@ -49,7 +49,7 @@ class Puppet::Util::NetworkDevice::Transport::Netscaler < Puppet::Util::NetworkD
   end
 
   def post(url, json, args={})
-    url = URI.escape(url) if url
+    url = URI::DEFAULT_PARSER.escape(url) if url
     resource_type = url.split('/')[2]
     if valid_json?(json)
       result = connection.post do |req|
@@ -65,7 +65,7 @@ class Puppet::Util::NetworkDevice::Transport::Netscaler < Puppet::Util::NetworkD
   end
 
   def put(url, json)
-    url = URI.escape(url) if url
+    url = URI::DEFAULT_PARSER.escape(url) if url
     resource_type = url.split('/')[2]
     if valid_json?(json)
       result = connection.put do |req|
@@ -81,7 +81,7 @@ class Puppet::Util::NetworkDevice::Transport::Netscaler < Puppet::Util::NetworkD
   end
 
   def delete(url,args={})
-    url = URI.escape(url) if url
+    url = URI::DEFAULT_PARSER.escape(url) if url
     result = connection.delete do |req|
       # https://github.com/lostisland/faraday/issues/465
       #req.options.params_encoder = Puppet::Util::NetworkDevice::Transport::DoNotEncoder
