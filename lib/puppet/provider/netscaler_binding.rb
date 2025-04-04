@@ -1,4 +1,5 @@
 require 'puppet/provider/netscaler'
+require 'uri'
 
 class Puppet::Provider::NetscalerBinding < Puppet::Provider::Netscaler
   def flush

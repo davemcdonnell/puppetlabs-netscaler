@@ -1,4 +1,5 @@
 require 'puppet/provider/netscaler_binding'
+require 'uri'
 
 Puppet::Type.type(:netscaler_lbvserver_service_binding).provide(:rest, {:parent => Puppet::Provider::NetscalerBinding}) do
   def netscaler_api_type

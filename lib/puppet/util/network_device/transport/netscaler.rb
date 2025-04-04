@@ -1,6 +1,7 @@
 require 'puppet/util/network_device'
 require 'puppet/util/network_device/transport'
 require 'puppet/util/network_device/transport/base'
+require 'uri'
 
 class Puppet::Util::NetworkDevice::Transport::Netscaler < Puppet::Util::NetworkDevice::Transport::Base
   attr_reader :connection
